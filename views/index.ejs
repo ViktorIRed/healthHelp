@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Site</title>
+    <link rel="stylesheet" href="css/all.min.css">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <aside id="sidebar">
+            <div class="d-flex">
+                <button class="toggle-btn" type="button">
+                    <i class="fa-solid fa-border-none"></i>
+                </button>
+                <div class="sidebar-logo">
+                    <a href="#">HealthHelp</a>
+                </div>
+            </div>
+            <ul class="sidebar-nav">
+                <li class="sidebar-item">
+                    <a href="/" class="sidebar-link collapsed has-dropdown" data-bs-toggle="popover"
+                        data-bs-target="#mn" aria-expanded="false" aria-controls="mn">
+                        <i class="fa-solid fa-house"></i>
+                        <span>Главная страница</span>
+                    </a>
+
+                    <ul id="mn" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        <li class="sidebar-item">
+                            <a href="/" class="sidebar-link">Главная страница</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="sidebar-item">
+                    <% if(isDoctor===true) {%>
+                        <a href="/profileDoctor" class="sidebar-link collapsed has-dropdown" data-bs-toggle="popover"
+                            data-bs-target="#pr" aria-expanded="false" aria-controls="pr">
+                            <i class="fa-regular fa-user"></i>
+                            <span>Профиль</span>
+                        </a>
+
+                        <ul id="pr" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                            <li class="sidebar-item">
+                                <a href="/profileDoctor" class="sidebar-link">Профиль</a>
+                            </li>
+                        </ul>
+                        <%} else {%>
+                            <a href="/profile" class="sidebar-link collapsed has-dropdown" data-bs-toggle="popover"
+                                data-bs-target="#pr" aria-expanded="false" aria-controls="pr">
+                                <i class="fa-regular fa-user"></i>
+                                <span>Профиль</span>
+                            </a>
+
+                            <ul id="pr" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                                <li class="sidebar-item">
+                                    <a href="/profile" class="sidebar-link">Профиль</a>
+                                </li>
+                            </ul>
+                            <%}%>
+
+                </li>
+                <li class="sidebar-item">
+                    <a href="/treatment" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
+                        data-bs-target="#heart" aria-expanded="false" aria-controls="heart">
+                        <i class="fa-solid fa-heart"></i>
+                        <span>Лечение</span>
+                    </a>
+                    <ul id="heart" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        <li class="sidebar-item">
+                            <a href="/personalDoctor" class="sidebar-link">Чат</a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="/indicators" class="sidebar-link">Показатели</a>
+                        </li>
+                        <% if(isDoctor!==true){%>
+                            <li class="sidebar-item">
+                                <a href="/recommendations" class="sidebar-link">Рекомендации</a>
+                            </li>
+                        <%}%>
+                    </ul>
+                </li>
+                <li class="sidebar-item">
+                    <a href="/devices" class="sidebar-link collapsed has-dropdown" data-bs-toggle="popover"
+                        data-bs-target="#dv" aria-expanded="false" aria-controls="dv">
+                        <i class="fa-solid fa-microchip"></i>
+                        <span>Устройства</span>
+                    </a>
+
+                    <ul id="dv" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
+                        <li class="sidebar-item">
+                            <a href="/devices" class="sidebar-link">Устройства</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="sidebar-footer">
+                <%=cookie%>
+                    <% if(cookie) {%>
+                        <a href="/exit" class="sidebar-link">
+                            <i class="fa-solid fa-arrow-left-long"></i>
+                            <span>Выйти</span>
+                        </a>
+                        <% } else {%>
+                            <a data-bs-toggle="modal" data-bs-target="#exampleModalEntrancePatient" href="#"
+                                class="sidebar-link">
+                                <i class="fa-solid fa-arrow-right"></i>
+                                <span>Войти</span>
+                            </a>
+                            <% } %>
+            </div>
+        </aside>
+        <div class="main p-3">
+            <div class="">
+                <% if(page==="null" ); else {%>
+                    <h6 class="main-text-center text-secondary">
+                        <%=page%>
+                    </h6>
+                    <% } %>
+            </div>
+            <div class="container-fluid">
+                <div id="mainContent" class="row g-3">
+                    <% if(namePage==="mainPage" ) { %>
+                        <%- include(`./${namePage}`) %>
+                            <% } %>
+                                <% if(namePage==="profilePage" ) { %>
+                                    <%- include(`./${namePage}`) %>
+                                        <% } %>
+                                            <% if(namePage==="personalDoctorPage" ) { %>
+                                                <%- include(`./${namePage}`, { data: data, dataPage: dataPage}) %>
+                                                    <% } %>
+                                                        <% if(namePage==="indicatorsPage" ) { %>
+                                                            <%- include(`./${namePage}`) %>
+                                                                <% } %>
+                                                                    <% if(namePage==="recommendationsPage" ) { %>
+                                                                        <%- include(`./${namePage}`) %>
+                                                                            <% } %>
+                                                                                <% if(namePage==="devicesPage" ) { %>
+                                                                                    <%- include(`./${namePage}`) %>
+                                                                                        <% } %>
+                                                                                            <% if(namePage==="chatPage"
+                                                                                                ) { %>
+                                                                                                <%- include(`./${namePage}`,{
+                                                                                                    data: data,
+                                                                                                    nameDoctor:
+                                                                                                    nameDoctor, userID:
+                                                                                                    userID}) %>
+                                                                                                    <% } %>
+                                                                                                        <% if(namePage==="doctorPage"
+                                                                                                            ) { %>
+                                                                                                            <%-
+                                                                                                                include(`./${namePage}`)%>
+                                                                                                                <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade modal-position" id="exampleModalEntrancePatient" tabindex="-1"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Вход</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="/login" method="post">
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Адрес электронной почты</label>
+                            <input type="email" class="form-control" name="email">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Пароль</label>
+                            <input type="password" class="form-control" name="password">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Войти</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#exampleModal">Регистрация</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade modal-position" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Регистрация</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="/register" method="post">
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Адрес электронной почты</label>
+                            <input type="email" class="form-control" name="email">
+                            <div id="emailHelp" class="form-text">Мы никогда никому не передадим вашу электронную почту.
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Имя</label>
+                            <input type="text" class="form-control" name="firstname">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Фамилия</label>
+                            <input type="text" class="form-control" name="lastname">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Номер телефона</label>
+                            <input type="text" class="form-control" name="number">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Пароль</label>
+                            <input type="password" class="form-control" name="password">
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputPassword1" class="form-label">Повтор пароля</label>
+                            <input type="password" class="form-control" name="confirmPassword">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Зарегистрироваться</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="loginPageError" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                        <%=error[1]%>
+                    </h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <%=error[2]%>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#exampleModalEntrancePatient">Авторизация</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="registerPageError" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                        <%=error[1]%>
+                    </h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <%=error[2]%>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#exampleModalEntrancePatient">Авторизация</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/all.min.js"></script>
+    <script src="js/script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.js">
+    </script>
+    <script src="js/chart2.js"></script>
+    <% if (modalopen) { %>
+        <script>
+            const modal = new bootstrap.Modal(document.getElementById('<%=error[0]%>'));
+            modal.show();
+        </script>
+        <% } %>
+</body>
+
+</html>
